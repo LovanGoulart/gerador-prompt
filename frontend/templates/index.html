@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Gerador de Prompts para Sistemas Web</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-rocket"></i>
+            <span>PromptGen Pro</span>
+        </div>
+        <div class="nav-links">
+            <a href="/" class="active"><i class="fas fa-file-alt"></i> Novo Briefing</a>
+            <a href="/historico"><i class="fas fa-history"></i> Histórico</a>
+        </div>
+    </nav>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-text">Progresso: <span id="progressText">0%</span></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <form id="briefingForm" class="briefing-form">
+
+            <!-- SEÇÃO 1: IDENTIFICAÇÃO -->
+            <section class="form-section" id="sec1">
+                <div class="section-header">
+                    <span class="section-number">1</span>
+                    <h2><i class="fas fa-id-card"></i> Identificação do Projeto <span class="required">⭐</span></h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec1')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nome_sistema">Nome do Sistema <span class="required">*</span></label>
+                            <input type="text" id="nome_sistema" name="nome_sistema" placeholder="Ex: Sistema de Gestão de Vendas" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="empresa">Empresa/Cliente</label>
+                            <input type="text" id="empresa" name="empresa" placeholder="Ex: TechCorp Brasil">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="setor">Setor/Indústria</label>
+                            <select id="setor" name="setor">
+                                <option value="">Selecione...</option>
+                                <option value="varejo">Varejo</option>
+                                <option value="saude">Saúde</option>
+                                <option value="educacao">Educação</option>
+                                <option value="financeiro">Financeiro</option>
+                                <option value="logistica">Logística</option>
+                                <option value="tecnologia">Tecnologia</option>
+                                <option value="alimentacao">Alimentação</option>
+                                <option value="imobiliario">Imobiliário</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="prazo_entrega">Prazo Desejado</label>
+                            <input type="text" id="prazo_entrega" name="prazo_entrega" placeholder="Ex: 30 dias">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="responsavel">Responsável pelo Projeto</label>
+                            <input type="text" id="responsavel" name="responsavel" placeholder="Nome do responsável">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: VISÃO GERAL -->
+            <section class="form-section" id="sec2">
+                <div class="section-header">
+                    <span class="section-number">2</span>
+                    <h2><i class="fas fa-eye"></i> Visão Geral do Sistema <span class="required">⭐</span></h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec2')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label for="descricao_problema">Descrição do Problema <span class="hint">(Qual problema este sistema resolve?)</span></label>
+                        <textarea id="descricao_problema" name="descricao_problema" rows="3" placeholder="Descreva o problema que o sistema resolve..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="objetivo_principal">Objetivo Principal <span class="required">*</span> <span class="hint">(Em uma frase)</span></label>
+                        <input type="text" id="objetivo_principal" name="objetivo_principal" placeholder="Ex: Automatizar o controle de estoque e vendas da empresa" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="publico_alvo">Público-Alvo <span class="hint">(Quem usará o sistema?)</span></label>
+                        <textarea id="publico_alvo" name="publico_alvo" rows="3" placeholder="Descreva os perfis de usuários (administradores, clientes, operadores...)"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="diferenciais">Diferenciais Competitivos</label>
+                        <textarea id="diferenciais" name="diferenciais" rows="2" placeholder="O que torna este sistema único?"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 3: FUNCIONALIDADES -->
+            <section class="form-section" id="sec3">
+                <div class="section-header">
+                    <span class="section-number">3</span>
+                    <h2><i class="fas fa-cubes"></i> Funcionalidades do Sistema <span class="required">⭐</span></h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec3')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label>Módulos Principais <span class="hint">(Marque os obrigatórios)</span></label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox" value="Autenticação e Autorização" class="modulo-check"> <i class="fas fa-lock"></i> Autenticação</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Dashboard/Painel Principal" class="modulo-check"> <i class="fas fa-chart-line"></i> Dashboard</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Cadastro de Usuários" class="modulo-check"> <i class="fas fa-users"></i> Usuários</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Cadastro de Produtos/Serviços" class="modulo-check"> <i class="fas fa-box"></i> Produtos</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Gestão de Pedidos/Transações" class="modulo-check"> <i class="fas fa-shopping-cart"></i> Pedidos</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Relatórios e Analytics" class="modulo-check"> <i class="fas fa-chart-bar"></i> Relatórios</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Notificações" class="modulo-check"> <i class="fas fa-bell"></i> Notificações</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Integração com APIs Externas" class="modulo-check"> <i class="fas fa-plug"></i> APIs</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Pagamentos Online" class="modulo-check"> <i class="fas fa-credit-card"></i> Pagamentos</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Upload de Arquivos" class="modulo-check"> <i class="fas fa-cloud-upload-alt"></i> Uploads</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Chat/Mensagens" class="modulo-check"> <i class="fas fa-comments"></i> Chat</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Agendamento/Calendário" class="modulo-check"> <i class="fas fa-calendar-alt"></i> Calendário</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Busca Avançada" class="modulo-check"> <i class="fas fa-search"></i> Busca</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Outros" class="modulo-check"> <i class="fas fa-ellipsis-h"></i> Outros</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Detalhamento dos Módulos</label>
+                        <div id="modulosDetalhamento">
+                            <div class="modulo-card">
+                                <input type="text" class="modulo-nome" placeholder="Nome do Módulo">
+                                <textarea class="modulo-funcs" rows="2" placeholder="Funcionalidades (uma por linha)"></textarea>
+                                <textarea class="modulo-regras" rows="1" placeholder="Regras especiais (opcional)"></textarea>
+                                <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addModuloCard()"><i class="fas fa-plus"></i> Adicionar Módulo</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 4: REGRAS DE NEGÓCIO -->
+            <section class="form-section" id="sec4">
+                <div class="section-header">
+                    <span class="section-number">4</span>
+                    <h2><i class="fas fa-gavel"></i> Regras de Negócio e Lógica <span class="required">⭐</span></h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec4')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label>Regras de Negócio</label>
+                        <div id="regrasContainer">
+                            <div class="regra-row">
+                                <input type="text" class="regra-desc" placeholder="Descrição da regra">
+                                <select class="regra-prio">
+                                    <option value="Alta">Alta</option>
+                                    <option value="Média" selected>Média</option>
+                                    <option value="Baixa">Baixa</option>
+                                </select>
+                                <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addRegraRow()"><i class="fas fa-plus"></i> Adicionar Regra</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fluxos de Trabalho</label>
+                        <div id="fluxosContainer">
+                            <div class="fluxo-card">
+                                <input type="text" class="fluxo-nome" placeholder="Nome do Fluxo">
+                                <textarea class="fluxo-passos" rows="3" placeholder="Passos do fluxo (um por linha)"></textarea>
+                                <textarea class="fluxo-decisoes" rows="1" placeholder="Decisões/Condições (opcional)"></textarea>
+                                <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addFluxoCard()"><i class="fas fa-plus"></i> Adicionar Fluxo</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cálculos e Fórmulas</label>
+                        <div id="calculosContainer">
+                            <div class="calculo-row">
+                                <input type="text" class="calc-nome" placeholder="Nome do cálculo">
+                                <input type="text" class="calc-formula" placeholder="Fórmula/Descrição">
+                                <input type="text" class="calc-onde" placeholder="Onde é usado">
+                                <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addCalculoRow()"><i class="fas fa-plus"></i> Adicionar Cálculo</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 5: UI/UX -->
+            <section class="form-section" id="sec5">
+                <div class="section-header">
+                    <span class="section-number">5</span>
+                    <h2><i class="fas fa-palette"></i> Interface do Usuário (UI/UX) <span class="required">⭐</span></h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec5')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tema">Tema</label>
+                            <select id="tema" name="tema">
+                                <option value="Claro">Claro</option>
+                                <option value="Escuro">Escuro</option>
+                                <option value="Ambos">Ambos (toggle)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="estilo_design">Estilo de Design</label>
+                            <select id="estilo_design" name="estilo_design">
+                                <option value="Moderno">Moderno</option>
+                                <option value="Minimalista">Minimalista</option>
+                                <option value="Corporativo">Corporativo</option>
+                                <option value="Criativo">Criativo</option>
+                                <option value="Material">Material Design</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cor_primaria">Cor Primária</label>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="cor_primaria" value="#3B82F6">
+                                <input type="text" id="cor_primaria_text" value="#3B82F6" class="color-text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cor_secundaria">Cor Secundária</label>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="cor_secundaria" value="#10B981">
+                                <input type="text" id="cor_secundaria_text" value="#10B981" class="color-text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cor_destaque">Cor Destaque</label>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="cor_destaque" value="#F59E0B">
+                                <input type="text" id="cor_destaque_text" value="#F59E0B" class="color-text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="layout">Layout Principal</label>
+                        <select id="layout" name="layout">
+                            <option value="Sidebar fixa">Sidebar fixa</option>
+                            <option value="Top navbar">Top navbar</option>
+                            <option value="Dashboard cards">Dashboard cards</option>
+                            <option value="Híbrido">Híbrido</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Telas Principais</label>
+                        <div id="telasContainer">
+                            <div class="tela-row">
+                                <input type="text" class="tela-nome" placeholder="Nome da Tela">
+                                <input type="text" class="tela-desc" placeholder="Descrição">
+                                <input type="text" class="tela-users" placeholder="Usuários que acessam">
+                                <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addTelaRow()"><i class="fas fa-plus"></i> Adicionar Tela</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Componentes de UI Necessários</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox" value="Tabelas com ordenação e filtros" class="comp-check"> <i class="fas fa-table"></i> Tabelas</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Formulários com validação em tempo real" class="comp-check"> <i class="fas fa-check-circle"></i> Validação</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Gráficos e dashboards" class="comp-check"> <i class="fas fa-chart-pie"></i> Gráficos</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Calendário interativo" class="comp-check"> <i class="fas fa-calendar"></i> Calendário</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Mapas" class="comp-check"> <i class="fas fa-map-marker-alt"></i> Mapas</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Drag and drop" class="comp-check"> <i class="fas fa-hand-pointer"></i> Drag & Drop</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Árvore de navegação" class="comp-check"> <i class="fas fa-sitemap"></i> Tree View</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Wizard/passo a passo" class="comp-check"> <i class="fas fa-list-ol"></i> Wizard</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Modal/pop-ups" class="comp-check"> <i class="fas fa-window-restore"></i> Modais</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Tooltips e ajuda contextual" class="comp-check"> <i class="fas fa-info-circle"></i> Tooltips</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Barra de progresso" class="comp-check"> <i class="fas fa-tasks"></i> Progresso</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Timeline/histórico" class="comp-check"> <i class="fas fa-history"></i> Timeline</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="responsividade">Responsividade</label>
+                        <select id="responsividade" name="responsividade">
+                            <option value="Desktop + Tablet + Mobile">Desktop + Tablet + Mobile</option>
+                            <option value="Desktop + Tablet">Desktop + Tablet</option>
+                            <option value="Desktop apenas">Desktop apenas</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 6: DADOS -->
+            <section class="form-section" id="sec6">
+                <div class="section-header">
+                    <span class="section-number">6</span>
+                    <h2><i class="fas fa-database"></i> Dados e Estrutura <span class="required">⭐</span></h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec6')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label>Entidades Principais</label>
+                        <div id="entidadesContainer">
+                            <div class="entidade-card">
+                                <input type="text" class="ent-nome" placeholder="Nome da Entidade (ex: Usuário)">
+                                <input type="text" class="ent-desc" placeholder="Descrição">
+                                <input type="text" class="ent-attrs" placeholder="Atributos (separados por vírgula)">
+                                <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addEntidadeCard()"><i class="fas fa-plus"></i> Adicionar Entidade</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="relacionamentos">Relacionamentos</label>
+                        <textarea id="relacionamentos" name="relacionamentos" rows="3" placeholder="Descreva como as entidades se relacionam (ex: Um Usuário pode ter vários Pedidos)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipos de Dados Especiais</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox" value="Dados geográficos" class="tipo-dado-check"> <i class="fas fa-map"></i> Geográficos</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Dados temporais" class="tipo-dado-check"> <i class="fas fa-clock"></i> Temporais</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Dados monetários" class="tipo-dado-check"> <i class="fas fa-dollar-sign"></i> Monetários</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Dados sensíveis" class="tipo-dado-check"> <i class="fas fa-shield-alt"></i> Sensíveis</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Arquivos grandes" class="tipo-dado-check"> <i class="fas fa-file-video"></i> Arquivos grandes</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Dados em tempo real" class="tipo-dado-check"> <i class="fas fa-bolt"></i> Tempo real</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 7: TÉCNICO -->
+            <section class="form-section" id="sec7">
+                <div class="section-header">
+                    <span class="section-number">7</span>
+                    <h2><i class="fas fa-server"></i> Requisitos Técnicos <span class="required">⭐</span></h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec7')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="framework_python">Framework Python</label>
+                            <select id="framework_python" name="framework_python">
+                                <option value="Flask">Flask</option>
+                                <option value="Django">Django</option>
+                                <option value="FastAPI">FastAPI</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="banco_dados">Banco de Dados</label>
+                            <select id="banco_dados" name="banco_dados">
+                                <option value="SQLite">SQLite</option>
+                                <option value="PostgreSQL">PostgreSQL</option>
+                                <option value="MySQL">MySQL</option>
+                                <option value="MongoDB">MongoDB</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hospedagem_bd">Hospedagem do BD</label>
+                            <select id="hospedagem_bd" name="hospedagem_bd">
+                                <option value="Local">Local</option>
+                                <option value="Nuvem (AWS)">Nuvem (AWS)</option>
+                                <option value="Nuvem (Azure)">Nuvem (Azure)</option>
+                                <option value="Nuvem (GCP)">Nuvem (GCP)</option>
+                                <option value="Servidor próprio">Servidor próprio</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="volume_dados">Volume Estimado</label>
+                            <input type="text" id="volume_dados" name="volume_dados" placeholder="Ex: 1000 registros/mês">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Integrações Externas</label>
+                        <div id="integracoesContainer">
+                            <div class="integracao-row">
+                                <input type="text" class="int-servico" placeholder="Serviço/API">
+                                <input type="text" class="int-proposito" placeholder="Propósito">
+                                <select class="int-auth">
+                                    <option value="Sim">Auth: Sim</option>
+                                    <option value="Não">Auth: Não</option>
+                                </select>
+                                <button type="button" class="btn-remove" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-add" onclick="addIntegracaoRow()"><i class="fas fa-plus"></i> Adicionar Integração</button>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tempo_resposta">Tempo de Resposta</label>
+                            <input type="text" id="tempo_resposta" name="tempo_resposta" value="< 2 segundos">
+                        </div>
+                        <div class="form-group">
+                            <label for="usuarios_simultaneos">Usuários Simultâneos</label>
+                            <input type="text" id="usuarios_simultaneos" name="usuarios_simultaneos" value="100">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="uptime">Disponibilidade (Uptime)</label>
+                            <input type="text" id="uptime" name="uptime" value="99.9%">
+                        </div>
+                        <div class="form-group">
+                            <label for="backup">Backup</label>
+                            <select id="backup" name="backup">
+                                <option value="Diário">Diário</option>
+                                <option value="Semanal">Semanal</option>
+                                <option value="Mensal">Mensal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Segurança <span class="hint">(Marque os necessários)</span></label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox" value="Criptografia AES-256" class="seg-check"> <i class="fas fa-key"></i> Criptografia</label>
+                            <label class="checkbox-item"><input type="checkbox" value="HTTPS/SSL obrigatório" class="seg-check"> <i class="fas fa-lock"></i> HTTPS/SSL</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Autenticação 2FA" class="seg-check"> <i class="fas fa-mobile-alt"></i> 2FA</label>
+                            <label class="checkbox-item"><input type="checkbox" value="LGPD/GDPR compliance" class="seg-check"> <i class="fas fa-balance-scale"></i> LGPD/GDPR</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Auditoria de logs" class="seg-check"> <i class="fas fa-clipboard-list"></i> Auditoria</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Rate limiting" class="seg-check"> <i class="fas fa-tachometer-alt"></i> Rate Limit</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 8: NÃO-FUNCIONAIS -->
+            <section class="form-section" id="sec8">
+                <div class="section-header">
+                    <span class="section-number">8</span>
+                    <h2><i class="fas fa-sliders-h"></i> Requisitos Não-Funcionais</h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec8')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label>Idiomas</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox" value="Português" class="idioma-check" checked> 🇧🇷 Português</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Inglês" class="idioma-check"> 🇺🇸 Inglês</label>
+                            <label class="checkbox-item"><input type="checkbox" value="Espanhol" class="idioma-check"> 🇪🇸 Espanhol</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Outros Requisitos</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox" id="acessibilidade" checked> <i class="fas fa-universal-access"></i> Acessibilidade WCAG</label>
+                            <label class="checkbox-item"><input type="checkbox" id="documentacao_usuario"> <i class="fas fa-book"></i> Doc. do Usuário</label>
+                            <label class="checkbox-item"><input type="checkbox" id="tutorial"> <i class="fas fa-graduation-cap"></i> Tutorial Interativo</label>
+                            <label class="checkbox-item"><input type="checkbox" id="codigo_comentado" checked> <i class="fas fa-code"></i> Código Comentado</label>
+                            <label class="checkbox-item"><input type="checkbox" id="doc_tecnica" checked> <i class="fas fa-file-code"></i> Doc. Técnica</label>
+                            <label class="checkbox-item"><input type="checkbox" id="testes" checked> <i class="fas fa-vial"></i> Testes Automatizados</label>
+                            <label class="checkbox-item"><input type="checkbox" id="logs_erro" checked> <i class="fas fa-bug"></i> Logs de Erro</label>
+                            <label class="checkbox-item"><input type="checkbox" id="arquitetura_modular" checked> <i class="fas fa-cubes"></i> Arquitetura Modular</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 9: ENTREGÁVEIS -->
+            <section class="form-section" id="sec9">
+                <div class="section-header">
+                    <span class="section-number">9</span>
+                    <h2><i class="fas fa-box-open"></i> Entregáveis Esperados</h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec9')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item"><input type="checkbox" value="Código fonte completo e documentado" class="entreg-check" checked> <i class="fas fa-code"></i> Código Fonte</label>
+                        <label class="checkbox-item"><input type="checkbox" value="Banco de dados com dados de exemplo" class="entreg-check" checked> <i class="fas fa-database"></i> BD com Seed</label>
+                        <label class="checkbox-item"><input type="checkbox" value="Documentação de instalação e deploy" class="entreg-check" checked> <i class="fas fa-file-alt"></i> Doc. Instalação</label>
+                        <label class="checkbox-item"><input type="checkbox" value="Documentação da API" class="entreg-check"> <i class="fas fa-plug"></i> Doc. API</label>
+                        <label class="checkbox-item"><input type="checkbox" value="Manual do usuário" class="entreg-check"> <i class="fas fa-book-open"></i> Manual</label>
+                        <label class="checkbox-item"><input type="checkbox" value="Vídeo tutorial de uso" class="entreg-check"> <i class="fas fa-video"></i> Vídeo Tutorial</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 10: PRIORIZAÇÃO -->
+            <section class="form-section" id="sec10">
+                <div class="section-header">
+                    <span class="section-number">10</span>
+                    <h2><i class="fas fa-sort-amount-down"></i> Priorização (MVP vs Futuro)</h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec10')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label for="mvp">MVP - Mínimo Produto Viável <span class="hint">(Obrigatório para lançamento)</span></label>
+                        <textarea id="mvp" name="mvp" rows="4" placeholder="Liste apenas o essencial para a primeira versão funcionar...&#10;1. Login e cadastro de usuários&#10;2. Dashboard com métricas básicas&#10;3. CRUD principal&#10;4. Relatório simples"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fase2">Fase 2 (Após validação do MVP)</label>
+                        <textarea id="fase2" name="fase2" rows="3" placeholder="Funcionalidades para adicionar depois..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="fase3">Fase 3 (Futuro)</label>
+                        <textarea id="fase3" name="fase3" rows="2" placeholder="Ideias para versões futuras..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 11: RESTRIÇÕES -->
+            <section class="form-section" id="sec11">
+                <div class="section-header">
+                    <span class="section-number">11</span>
+                    <h2><i class="fas fa-exclamation-triangle"></i> Restrições e Observações</h2>
+                    <button type="button" class="toggle-btn" onclick="toggleSection('sec11')"><i class="fas fa-chevron-down"></i></button>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label for="restricoes">Restrições <span class="hint">(O que NÃO pode ser usado/feito)</span></label>
+                        <textarea id="restricoes" name="restricoes" rows="3" placeholder="Ex: Não usar frameworks pesados, manter compatibilidade com IE11, orçamento máximo..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="suposicoes">Suposições</label>
+                        <textarea id="suposicoes" name="suposicoes" rows="2" placeholder="Ex: O cliente já possui servidor, os usuários têm acesso à internet..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="observacoes">Observações Finais</label>
+                        <textarea id="observacoes" name="observacoes" rows="2" placeholder="Qualquer informação adicional relevante..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Botões de Ação -->
+            <div class="form-actions">
+                <button type="button" class="btn-preview" onclick="gerarPreview()">
+                    <i class="fas fa-eye"></i> Preview do Prompt
+                </button>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-magic"></i> Gerar e Salvar Prompt
+                </button>
+                <button type="button" class="btn-reset" onclick="limparFormulario()">
+                    <i class="fas fa-eraser"></i> Limpar
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Modal de Preview -->
+    <div id="previewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-eye"></i> Preview do Prompt</h2>
+                <button class="modal-close" onclick="fecharModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <pre id="previewContent"></pre>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-copy" onclick="copiarPrompt()"><i class="fas fa-copy"></i> Copiar</button>
+                <button class="btn-download" onclick="downloadPrompt()"><i class="fas fa-download"></i> Download .txt</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Operação realizada com sucesso!</span>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-cog fa-spin"></i>
+            <p>Gerando prompt otimizado...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
