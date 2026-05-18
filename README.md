@@ -1,2 +1,2 @@
 # gerador-prompt
-🚀 Sistema web desenvolvido com Python, HTML e CSS, com auxílio de IA. O cliente preenche um briefing técnico e o sistema gera automaticamente um prompt otimizado para criação de softwares e sistemas personalizados. O prompt final é gerado em arquivo `.txt`.
+PromptGen é uma plataforma web profissional desenvolvida para automatizar a criação de prompts técnicos estruturados e otimizados. Ideal para desenvolvedores, product managers e equipes técnicas que utilizam inteligência artificial no desenvolvimento de software. O cliente preenche um briefing técnico e o sistema gera automaticamente um arquivo `´.txt´ com o prompt otimizado para criação de softwares e sistemas personalizados. 
