@@ -1,2 +1,2 @@
 # gerador-prompt
-PromptGen é uma plataforma web profissional desenvolvida para automatizar a criação de prompts técnicos estruturados e otimizados. Ideal para desenvolvedores, product managers e equipes técnicas que utilizam inteligência artificial no desenvolvimento de software. O cliente preenche um briefing técnico e o sistema gera automaticamente um arquivo `´.txt´ com o prompt otimizado para criação de softwares e sistemas personalizados. 
+Ferramenta web para transformar briefings em prompts técnicos estruturados para desenvolvimento de software.
